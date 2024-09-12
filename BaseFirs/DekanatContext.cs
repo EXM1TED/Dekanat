@@ -29,6 +29,27 @@ public partial class DekanatContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Group>(entity =>
+        {
+            entity.HasOne(d => d.Course).WithMany(p => p.Groups)
+                .HasForeignKey(d => d.CourseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Groups_Courses");
+
+            entity.HasOne(d => d.Teacher).WithMany(p => p.Groups)
+                .HasForeignKey(d => d.TeacherId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Groups_Teachers");
+        });
+
+        modelBuilder.Entity<Teacher>(entity =>
+        {
+            entity.HasOne(d => d.Discipline).WithMany(p => p.Teachers)
+                .HasForeignKey(d => d.DisciplineId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Teachers_Disciplines");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 

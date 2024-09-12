@@ -10,4 +10,6 @@ public partial class Course
     public string NameOfCourse { get; set; } = null!;
 
     public int TeacherId { get; set; }
+
+    public virtual ICollection<Group> Groups { get; set; } = new List<Group>();
 }

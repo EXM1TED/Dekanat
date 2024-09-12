@@ -10,4 +10,6 @@ public partial class Discipline
     public string DisciplineName { get; set; } = null!;
 
     public int CountOfHours { get; set; }
+
+    public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 }
